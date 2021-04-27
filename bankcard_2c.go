@@ -47,6 +47,7 @@ func (s *Service) Bankcard2C(realName string, bankcard string) (*Bankcard2C, err
 		if err != nil {
 			return nil, err
 		}
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 		res, err = client.Do(req)
 		if err != nil {

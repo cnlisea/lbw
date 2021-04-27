@@ -48,6 +48,7 @@ func (s *Service) IdCard(realName string, cardNo string) (*IdCard, error) {
 		if err != nil {
 			return nil, err
 		}
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 		res, err = client.Do(req)
 		if err != nil {
