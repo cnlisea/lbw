@@ -8,9 +8,10 @@ import (
 )
 
 type Bankcard2C struct {
-	Status  bool   // 认证状态
-	ErrMsg  string // 错误信息
-	OrderId string // 订单号
+	Status   bool   // 认证状态
+	ErrMsg   string // 错误信息
+	OrderId  string // 订单号
+	BankName string // 银行名称
 }
 
 func (s *Service) Bankcard2C(realName string, bankcard string) (*Bankcard2C, error) {
@@ -34,6 +35,7 @@ func (s *Service) Bankcard2C(realName string, bankcard string) (*Bankcard2C, err
 			RespCode        string `json:"respCode"`
 			RespDesc        string `json:"respDesc"`
 			MerchantTraceNo string `json:"merchantTraceNo"`
+			IssuerName      string `json:"issuerName"`
 		}
 		err error
 	)
@@ -65,8 +67,9 @@ func (s *Service) Bankcard2C(realName string, bankcard string) (*Bankcard2C, err
 		}
 	}
 	return &Bankcard2C{
-		Status:  resBody.RespCode == "00000000",
-		ErrMsg:  resBody.RespDesc,
-		OrderId: resBody.MerchantTraceNo,
+		Status:   resBody.RespCode == "00000000",
+		ErrMsg:   resBody.RespDesc,
+		OrderId:  resBody.MerchantTraceNo,
+		BankName: resBody.IssuerName,
 	}, nil
 }
